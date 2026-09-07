@@ -1,1 +1,13 @@
-
+transaction_id,user_id,date,category,amount,commission,status
+T001,U001,2026-07-01,Payments,1200,24,Success
+T002,U002,2026-07-01,Transfers,800,12,Success
+T003,U003,2026-07-02,Top Up,1500,18,Success
+T004,U001,2026-07-02,Payments,900,18,Success
+T005,U004,2026-07-03,Transfers,700,10,Failed
+T006,U005,2026-07-03,Payments,1100,22,Success
+T007,U002,2026-07-04,Top Up,1300,16,Success
+T008,U003,2026-07-05,Payments,950,19,Success
+T009,U004,2026-07-05,Transfers,1250,20,Success
+T010,U005,2026-07-06,Payments,600,12,Failed
+T011,U001,2026-07-07,Top Up,1150,14,Success
+T012,U006,2026-07-08,Payments,1600,32,Success
