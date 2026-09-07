@@ -31,7 +31,8 @@ async def start_command(
         "Available commands:\n"
         "/report — payment analytics summary\n"
         "/top_users — top users by payment volume\n"
-        "/file — download Excel analytics report"
+        "/file — download Excel analytics report\n"
+        "/help — show help"
     )
 
     await update.message.reply_text(text)
@@ -69,6 +70,32 @@ async def file_command(
         )
 
 
+async def help_command(
+    update: Update,
+    context: ContextTypes.DEFAULT_TYPE,
+):
+    text = (
+        "📚 Available commands:\n\n"
+        "/start — start the bot\n"
+        "/report — payment analytics summary\n"
+        "/top_users — top users by payment volume\n"
+        "/file — download Excel analytics report\n"
+        "/help — show this help message"
+    )
+
+    await update.message.reply_text(text)
+
+
+async def set_commands(application):
+    await application.bot.set_my_commands([
+        ("start", "Start the bot"),
+        ("report", "Payment analytics summary"),
+        ("top_users", "Top users by payment volume"),
+        ("file", "Download Excel analytics report"),
+        ("help", "Show help"),
+    ])
+
+
 def main():
     if not BOT_TOKEN:
         raise ValueError(
@@ -76,7 +103,12 @@ def main():
             "Create a .env file and add your bot token."
         )
 
-    app = Application.builder().token(BOT_TOKEN).build()
+    app = (
+        Application.builder()
+        .token(BOT_TOKEN)
+        .post_init(set_commands)
+        .build()
+    )
 
     app.add_handler(
         CommandHandler("start", start_command)
@@ -92,6 +124,10 @@ def main():
 
     app.add_handler(
         CommandHandler("file", file_command)
+    )
+
+    app.add_handler(
+        CommandHandler("help", help_command)
     )
 
     print("Bot is running...")
